@@ -3,7 +3,7 @@ import { ChatEngine } from 'react-chat-engine';
 import ChatFeed from '../../components/ChatFeed';
 import "../../App.css";
 
-const projectID = '84475c91-fca9-4a5a-9f64-5555f1dbe498';
+const projectID = '5bb6a19d-b362-40cb-bb5a-2d100d8e077e';
 
 const ChatPage = () => {
     return (
@@ -15,7 +15,7 @@ const ChatPage = () => {
         //     renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
         //     onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
         // />
-        <ChatEngine
+        < ChatEngine
             height="100vh"
             projectID={projectID}
             userName="Cris"

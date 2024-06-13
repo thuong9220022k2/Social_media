@@ -4,19 +4,24 @@ import User from "../models/User.js";
 /* CREATE */
 export const createPost = async (req, res) => {
   try {
-    const { userId, description, picturePath } = req.body;
+    const { userId, title, description, category, address, picturePath } = req.body;
+    console.log("Req", req.body)
     const user = await User.findById(userId);
     const newPost = new Post({
       userId,
       firstName: user.firstName,
       lastName: user.lastName,
       location: user.location,
+      title,
       description,
+      category,
+      address,
       userPicturePath: user.picturePath,
       picturePath,
       likes: {},
       comments: [],
     });
+    console.log("newPost", newPost)
     await newPost.save();
 
     const post = await Post.find();
@@ -26,7 +31,6 @@ export const createPost = async (req, res) => {
   }
 };
 
-/* READ */
 export const getFeedPosts = async (req, res) => {
   try {
     const post = await Post.find();

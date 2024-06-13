@@ -13,7 +13,7 @@ const userIds = [
 
 export const users = [
   {
-    _id: userIds[0],
+    _id: new mongoose.Types.ObjectId(),
     firstName: "test",
     lastName: "me",
     email: "aaaaaaa@gmail.com",
