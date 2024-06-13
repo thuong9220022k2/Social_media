@@ -36,6 +36,15 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     dispatch(setFriends({ friends: data }));
   };
 
+  const handleMessage = async () => {
+    const userObejct = localStorage.getItem("persist:root");
+    console.log(userObejct);
+    const userName = localStorage.getItem("username");
+    console.log(userName);
+
+
+  }
+
   return (
     <FlexBetween>
       <FlexBetween gap="1rem">
@@ -64,6 +73,9 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
+      <IconButton onClick={() => handleMessage()}>
+        <p>Check</p>
+      </IconButton>
       <IconButton
         onClick={() => patchFriend()}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
