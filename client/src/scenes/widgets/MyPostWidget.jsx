@@ -58,7 +58,7 @@ const MyPostWidget = () => {
   // const mediumMain = palette.neutral.mediumMain;
   // const medium = palette.neutral.medium;
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("userId", _id);
     formData.append("title", title);
@@ -79,8 +79,7 @@ const MyPostWidget = () => {
     dispatch(setPosts({ posts }));
     setImage(null);
     setPost("");
-    event.preventDefault()
-    // setOpen(false);
+    setOpen(false);
   };
   const handleOpen = () => {
     setOpen(true);
