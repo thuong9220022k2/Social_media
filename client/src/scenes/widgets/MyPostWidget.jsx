@@ -57,7 +57,7 @@ const MyPostWidget = () => {
       formData.append("picturePath", image.name);
     }
     console.log(formData)
-    const response = await fetch(`/posts`, {
+    const response = await fetch(`https://social-media-server-sigma-rose.vercel.app/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
