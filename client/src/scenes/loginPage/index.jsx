@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-import Form from "./Form";
+import ChooseUser from "components/login/ChooseUser";
 
 const LoginPage = () => {
   const theme = useTheme();
@@ -13,7 +13,7 @@ const LoginPage = () => {
         textAlign="center"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
-          Social Media
+          Hanabi Sport
         </Typography>
       </Box>
 
@@ -25,9 +25,9 @@ const LoginPage = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to Socipedia, the Social Media for Sociopaths!
+          Chào bạn đến với Hanabi Sport, chọn tài khoản muốn dùng!
         </Typography>
-        <Form />
+        <ChooseUser />
       </Box>
     </Box>
   );
