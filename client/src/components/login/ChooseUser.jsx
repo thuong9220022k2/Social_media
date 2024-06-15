@@ -8,7 +8,7 @@ function ChooseUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const login = async (values) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch("https://social-media-server-sigma-rose.vercel.app/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
