@@ -56,7 +56,7 @@ const Navbar = () => {
             },
           }}
         >
-          Social Media
+          Hanabi Sport
         </Typography>
         {isNonMobileScreens && (
           <FlexBetween

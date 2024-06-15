@@ -19,7 +19,10 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
-  const isFriend = friends.find((friend) => friend._id === friendId);
+  const isFriend =
+    friends && friends.length > 0
+      ? friends.find((friend) => friend._id === friendId)
+      : null;
 
   const patchFriend = async () => {
     const response = await fetch(
@@ -41,9 +44,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     console.log(userObejct);
     const userName = localStorage.getItem("username");
     console.log(userName);
-
-
-  }
+  };
 
   return (
     <FlexBetween>
