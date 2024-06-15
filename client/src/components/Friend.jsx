@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
+import PersonPinCircleIcon from "@mui/icons-material/PersonPinCircle";
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -69,15 +70,15 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
           >
             {name}
           </Typography>
-          <Typography color={medium} fontSize="0.75rem">
-            {subtitle}
-          </Typography>
+          <Box display={"flex"} pt={0.5} gap={1}>
+            <PersonPinCircleIcon sx={{color: "#666666", fontSize: 16}}/>
+            <Typography color={medium} fontSize="0.75rem">
+              {subtitle}
+            </Typography>
+          </Box>
         </Box>
       </FlexBetween>
-      <IconButton onClick={() => handleMessage()}>
-        <p>Check</p>
-      </IconButton>
-      <IconButton
+      {/* <IconButton
         onClick={() => patchFriend()}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
@@ -86,7 +87,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         ) : (
           <PersonAddOutlined sx={{ color: primaryDark }} />
         )}
-      </IconButton>
+      </IconButton> */}
     </FlexBetween>
   );
 };

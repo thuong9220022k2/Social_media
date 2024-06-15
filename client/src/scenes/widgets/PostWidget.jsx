@@ -2,25 +2,36 @@ import {
   ChatBubbleOutlineOutlined,
   FavoriteBorderOutlined,
   FavoriteOutlined,
-  ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Divider,
+  IconButton,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { categoryConst } from "constants/category";
 
 const PostWidget = ({
   postId,
   postUserId,
   name,
   description,
-  location,
   picturePath,
   userPicturePath,
   likes,
+  address,
+  category,
   comments,
 }) => {
   const [isComments, setIsComments] = useState(false);
@@ -52,7 +63,7 @@ const PostWidget = ({
       <Friend
         friendId={postUserId}
         name={name}
-        subtitle={location}
+        subtitle={address}
         userPicturePath={userPicturePath}
       />
       <Typography color={main} sx={{ mt: "1rem" }}>
@@ -67,6 +78,16 @@ const PostWidget = ({
           src={`http://localhost:3001/assets/${picturePath}`}
         />
       )}
+      <Box display="flex" justifyContent="space-between" pt={1}>
+        <Chip
+          icon={<BookmarkIcon />}
+          variant="outlined"
+          label={categoryConst.find((cat) => cat.type === category)?.value}
+        />
+
+        <Button variant="contained">Liên hệ với bạn này</Button>
+      </Box>
+
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
@@ -87,10 +108,6 @@ const PostWidget = ({
             <Typography>{comments.length}</Typography>
           </FlexBetween>
         </FlexBetween>
-
-        <IconButton>
-          <ShareOutlined />
-        </IconButton>
       </FlexBetween>
       {isComments && (
         <Box mt="0.5rem">
@@ -103,6 +120,20 @@ const PostWidget = ({
             </Box>
           ))}
           <Divider />
+          <Box pt={2} sx={{ width: "100%" }} gap={1} display={"flex"}>
+            <TextField
+              sx={{
+                width: "80%",
+              }}
+              InputProps={{
+                sx: {
+                  maxHeight: 40,
+                  borderRadius: 10,
+                },
+              }}
+            />
+            <Button variant="text">Comment</Button>
+          </Box>
         </Box>
       )}
     </WidgetWrapper>
