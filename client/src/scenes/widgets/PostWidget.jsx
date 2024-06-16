@@ -2,9 +2,17 @@ import {
   ChatBubbleOutlineOutlined,
   FavoriteBorderOutlined,
   FavoriteOutlined,
-  ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Divider,
+  IconButton,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -12,16 +20,19 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { setPost } from "state";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { categoryConst } from "constants/category";
 
 const PostWidget = ({
   postId,
   postUserId,
   name,
   description,
-  location,
   picturePath,
   userPicturePath,
   likes,
+  address,
+  category,
   comments,
 }) => {
   const [isComments, setIsComments] = useState(false);
@@ -53,7 +64,7 @@ const PostWidget = ({
       <Friend
         friendId={postUserId}
         name={name}
-        subtitle={location}
+        subtitle={address}
         userPicturePath={userPicturePath}
       />
       <Typography color={main} sx={{ mt: "1rem" }}>
@@ -68,6 +79,16 @@ const PostWidget = ({
           src={`https://social-media-server-sigma-rose.vercel.app/assets/${picturePath}`}
         />
       )}
+      <Box display="flex" justifyContent="space-between" pt={1}>
+        <Chip
+          icon={<BookmarkIcon />}
+          variant="outlined"
+          label={categoryConst.find((cat) => cat.type === category)?.value}
+        />
+
+        <Button variant="contained">Liên hệ với bạn này</Button>
+      </Box>
+
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
@@ -94,27 +115,35 @@ const PostWidget = ({
             }}>message</p>
           </FlexBetween>
         </FlexBetween>
-
-        <IconButton>
-          <ShareOutlined />
-        </IconButton>
       </FlexBetween>
-      {
-        isComments && (
-          <Box mt="0.5rem">
-            {comments.map((comment, i) => (
-              <Box key={`${name}-${i}`}>
-                <Divider />
-                <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                  {comment}
-                </Typography>
-              </Box>
-            ))}
-            <Divider />
+      {isComments && (
+        <Box mt="0.5rem">
+          {comments.map((comment, i) => (
+            <Box key={`${name}-${i}`}>
+              <Divider />
+              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+                {comment}
+              </Typography>
+            </Box>
+          ))}
+          <Divider />
+          <Box pt={2} sx={{ width: "100%" }} gap={1} display={"flex"}>
+            <TextField
+              sx={{
+                width: "80%",
+              }}
+              InputProps={{
+                sx: {
+                  maxHeight: 40,
+                  borderRadius: 10,
+                },
+              }}
+            />
+            <Button variant="text">Comment</Button>
           </Box>
-        )
-      }
-    </WidgetWrapper >
+        </Box>
+      )}
+    </WidgetWrapper>
   );
 };
 
