@@ -54,6 +54,8 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         <UserImage image={userPicturePath} size="55px" />
         <Box
           onClick={() => {
+            if(_id === friendId)
+              return;
             navigate(`/chat/${friendId}`);
             navigate(0);
           }}
