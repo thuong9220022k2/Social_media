@@ -18,6 +18,7 @@ import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { setPost } from "state";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { categoryConst } from "constants/category";
@@ -46,7 +47,7 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+    const response = await fetch(`https://social-media-server-sigma-rose.vercel.app/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -75,7 +76,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={`https://social-media-server-sigma-rose.vercel.app/assets/${picturePath}`}
         />
       )}
       <Box display="flex" justifyContent="space-between" pt={1}>
@@ -106,6 +107,12 @@ const PostWidget = ({
               <ChatBubbleOutlineOutlined />
             </IconButton>
             <Typography>{comments.length}</Typography>
+          </FlexBetween>
+          <FlexBetween>
+            <p onClick={() => {
+              console.log("clicked")
+              window.location.href = "https://social-media-server-sigma-rose.vercel.app/chat";
+            }}>message</p>
           </FlexBetween>
         </FlexBetween>
       </FlexBetween>
