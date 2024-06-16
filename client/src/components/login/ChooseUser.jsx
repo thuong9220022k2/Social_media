@@ -10,6 +10,7 @@ function ChooseUser() {
   const login = async (values) => {
     const loggedInResponse = await fetch("https://social-media-server-sigma-rose.vercel.app/auth/login", {
       method: "POST",
+      mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
