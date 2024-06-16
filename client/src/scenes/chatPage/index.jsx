@@ -23,6 +23,8 @@ const ChatPage = () => {
                 userSecret="$2b$10$InS7bUsy7KkHVULtmAQwburGtUU1oHbk3ssVoVz50AWsgkOHJuNKy"
                 renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
                 onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
+                renderOptionsSettings={(creds, chat) => (null)}
+                renderPeopleSettings={(creds, chat) => (null)}
             />
         </Box>
     );

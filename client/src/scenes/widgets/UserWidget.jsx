@@ -32,6 +32,7 @@ const UserWidget = ({ userId, picturePath }) => {
 
   useEffect(() => {
     getUser();
+    console.log("ava", picturePath);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
@@ -55,6 +56,8 @@ const UserWidget = ({ userId, picturePath }) => {
         gap="0.5rem"
         pb="1.1rem"
         onClick={() => navigate(`/profile/${userId}`)}
+
+        
       >
         <FlexBetween gap="1rem">
           <UserImage image={picturePath} />
@@ -72,7 +75,7 @@ const UserWidget = ({ userId, picturePath }) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            <Typography color={medium}>1 friends</Typography>
           </Box>
         </FlexBetween>
         <ManageAccountsOutlined />

@@ -132,7 +132,7 @@ const MyPostWidget = () => {
               <Grid item xs={12}>
                 <Typography padding="0 0 10px 0">Tiêu đề</Typography>
                 <TextField
-                  label="Tiêu đề"
+                  placeholder="Tiêu đề"
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
                   fullWidth
@@ -141,7 +141,7 @@ const MyPostWidget = () => {
               <Grid item xs={12}>
                 <Typography padding="0 0 10px 0">Mô tả</Typography>
                 <TextField
-                  label="Ex: Mặt hàng top tier trên gian tiktok"
+                  placeholder="Ex: Mặt hàng top tier trên gian tiktok"
                   value={description}
                   onChange={(event) => setDescription(event.target.value)}
                   fullWidth
@@ -164,7 +164,7 @@ const MyPostWidget = () => {
               <Grid item xs={12}>
                 <Typography padding="0 0 10px 0">Địa chỉ</Typography>
                 <TextField
-                  label="Địa chỉ gặp trực tiếp"
+                  placeholder="Địa chỉ gặp mặt"
                   value={address}
                   onChange={(event) => setAddress(event.target.value)}
                   fullWidth

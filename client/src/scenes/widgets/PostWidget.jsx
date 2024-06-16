@@ -78,6 +78,7 @@ const PostWidget = ({
   }
 
   const commentTo = async () => {
+    if(newComment.length <1) return;
     try {
       const response = await fetch(`${BaseBEURL}/comment`, {
         method: "POST",
@@ -97,6 +98,7 @@ const PostWidget = ({
       }
 
       // const newComment = await response.json();
+      setNewComment('');
       setReload(!reload); // Toggle reload to trigger useEffect
     } catch (error) {
       console.error('Failed to post comment:', error);
@@ -143,8 +145,8 @@ const PostWidget = ({
           variant="outlined"
           label={categoryConst.find((cat) => cat.type === category)?.value}
         />
+        {loggedInUserId === postUserId ? null : <Button variant="contained" onClick={handleRedirectChat}>Liên hệ</Button>}
 
-        <Button variant="contained" onClick={handleRedirectChat}>Liên hệ</Button>
       </Box>
 
       <FlexBetween mt="0.25rem">
