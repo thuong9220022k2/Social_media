@@ -30,6 +30,7 @@ const style = {
 };
 
 const MyPostWidget = () => {
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
@@ -42,11 +43,8 @@ const MyPostWidget = () => {
   const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-  // const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  // const mediumMain = palette.neutral.mediumMain;
-  // const medium = palette.neutral.medium;
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
     const formData = new FormData();
     formData.append("userId", _id);
     formData.append("title", title);
@@ -69,6 +67,7 @@ const MyPostWidget = () => {
     setPost("");
     setOpen(false);
   };
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -78,7 +77,6 @@ const MyPostWidget = () => {
   };
 
   const [error, setError] = useState(null);
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     console.log("file", file);
@@ -88,7 +86,11 @@ const MyPostWidget = () => {
 
   return (
     <WidgetWrapper>
-      <Typography>Bạn muốn đăng gì?</Typography>
+      <Box width={"100%"}>
+        <Typography>
+          <h2>Đăng bài</h2>
+        </Typography>
+      </Box>
       <Box width={"100%"}>
         <Box
           onClick={handleOpen}
@@ -103,7 +105,6 @@ const MyPostWidget = () => {
           }}
         >
           <Box display="flex" width="100%" gap={2} alignItems="center">
-            <Box minHeight={40} width={"80%"} border={1} borderRadius={2} />
             <Button variant="contained" sx={{ height: 40 }}>
               <AddCircleOutlineOutlinedIcon sx={{ color: "#ffffff" }} />
             </Button>

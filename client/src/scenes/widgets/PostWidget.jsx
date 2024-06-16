@@ -24,7 +24,7 @@ import { setComments, setPost } from "state";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { categoryConst } from "constants/category";
 import CommentItem from "./CommentItem";
-
+import { useNavigate } from 'react-router-dom';
 const PostWidget = ({
   postId,
   postUserId,
@@ -103,6 +103,13 @@ const PostWidget = ({
     }
   }
 
+  const navigate = useNavigate();
+
+  const handleRedirectChat = () => {
+    console.log("loggedInuserId", loggedInUserId)
+    navigate(`/chat/${loggedInUserId}`);
+  };
+
   useEffect(() => {
     getComment();
   }, [reload]);
@@ -125,7 +132,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`${BaseBEURL}/assets/${picturePath}`}
+          src={`${picturePath}`}
         />
       )}
       <Box display="flex" justifyContent="space-between" pt={1}>
@@ -135,7 +142,7 @@ const PostWidget = ({
           label={categoryConst.find((cat) => cat.type === category)?.value}
         />
 
-        <Button variant="contained">Liên hệ với bạn này</Button>
+        <Button variant="contained" onClick={handleRedirectChat}>Liên hệ</Button>
       </Box>
 
       <FlexBetween mt="0.25rem">
@@ -158,12 +165,6 @@ const PostWidget = ({
               <ChatBubbleOutlineOutlined />
             </IconButton>
             <Typography>{postComments.length}</Typography>
-          </FlexBetween>
-          <FlexBetween>
-            <p onClick={() => {
-              console.log("clicked")
-              window.location.href = `${BaseBEURL}/chat`;
-            }}>message</p>
           </FlexBetween>
         </FlexBetween>
       </FlexBetween>
