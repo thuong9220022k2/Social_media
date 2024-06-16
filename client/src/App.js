@@ -31,7 +31,7 @@ function App() {
               element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
             // element={<ProfilePage />}
             />
-            <Route path="/chat"
+            <Route path="/chat/:userId"
               element={isAuth ? <ChatPage /> : <Navigate to="/" />}
             />
           </Routes>
