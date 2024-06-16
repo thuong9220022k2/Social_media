@@ -45,6 +45,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           _id,
           userId,
           address,
+          title,
           firstName,
           lastName,
           description,
@@ -58,6 +59,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             key={_id}
             postId={_id}
             postUserId={userId}
+            title={title}
             address={address}
             name={`${firstName} ${lastName}`}
             description={description}

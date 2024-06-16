@@ -6,6 +6,7 @@ import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 import PersonPinCircleIcon from "@mui/icons-material/PersonPinCircle";
+import { BaseBEURL } from "constants/baseBE";
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `https://social-media-server-sigma-rose.vercel.app/users/${_id}/${friendId}`,
+      `${BaseBEURL}/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
