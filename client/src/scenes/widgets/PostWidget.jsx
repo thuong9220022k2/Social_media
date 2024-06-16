@@ -106,8 +106,10 @@ const PostWidget = ({
   const navigate = useNavigate();
 
   const handleRedirectChat = () => {
-    console.log("loggedInuserId", loggedInUserId)
-    navigate(`/chat/${loggedInUserId}`);
+    // console.log("loggedInuserId", loggedInUserId)
+    let userId = '666e6f1a127f16d3e8b58512'
+    navigate(`/chat/${userId}`);
+    // navigate('/chat')
   };
 
   useEffect(() => {

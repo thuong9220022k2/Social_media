@@ -2,19 +2,25 @@ import { ChatEngine } from 'react-chat-engine';
 import { Box, useMediaQuery } from "@mui/material";
 import Navbar from "scenes/navbar";
 import ChatFeed from '../../components/ChatFeed';
+import { useDispatch, useSelector } from "react-redux";
 import "../../App.css";
 
-const projectID = '5bb6a19d-b362-40cb-bb5a-2d100d8e077e';
+const projectID = 'dbfd82da-9160-477a-896b-1e29d60ab129';
 
-const ChatPage = (props) => {
+const ChatPage = () => {
+    // const dispatch = useDispatch();
+    // const token = useSelector((state) => state.token);
+    const userName = useSelector((state) => state.user.firstName);
+    console.log("loggedInUserId", userName)
+
     return (
         <Box paddingLeft="2rem" paddingRight="2rem" paddingHorizontal="6%">
             <Navbar />
             < ChatEngine
                 height="90vh"
                 projectID={projectID}
-                userName="Cris"
-                userSecret="$2b$10$60mtK5Gt1T4puucbq5xAVu/4aMvH145aTQ7ZmQqLQ7.FzodRRoAqO\"
+                userName={userName}
+                userSecret="$2b$10$InS7bUsy7KkHVULtmAQwburGtUU1oHbk3ssVoVz50AWsgkOHJuNKy"
                 renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
                 onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
             />
