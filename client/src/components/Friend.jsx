@@ -41,12 +41,12 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     dispatch(setFriends({ friends: data }));
   };
 
-  const handleMessage = async () => {
-    const userObejct = localStorage.getItem("persist:root");
-    console.log(userObejct);
-    const userName = localStorage.getItem("username");
-    console.log(userName);
-  };
+  // const handleMessage = async () => {
+  //   const userObejct = localStorage.getItem("persist:root");
+  //   console.log(userObejct);
+  //   const userName = localStorage.getItem("username");
+  //   console.log(userName);
+  // };
 
   return (
     <FlexBetween>
@@ -72,7 +72,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
             {name}
           </Typography>
           <Box display={"flex"} pt={0.5} gap={1}>
-            <PersonPinCircleIcon sx={{color: "#666666", fontSize: 16}}/>
+            <PersonPinCircleIcon sx={{ color: "#666666", fontSize: 16 }} />
             <Typography color={medium} fontSize="0.75rem">
               {subtitle}
             </Typography>
