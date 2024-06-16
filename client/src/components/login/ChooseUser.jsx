@@ -1,5 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { accounts } from "constants/account";
+import { BaseBEURL } from "constants/baseBE";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setLogin } from "state";
@@ -8,9 +9,10 @@ function ChooseUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const login = async (values) => {
-    const loggedInResponse = await fetch("https://social-media-server-sigma-rose.vercel.app/auth/login", {
+    console.log(values)
+    const loggedInResponse = await fetch(`${BaseBEURL}/auth/login`, {
       method: "POST",
-      mode: "no-cors",
+      // mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
