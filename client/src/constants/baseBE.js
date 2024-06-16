@@ -1,2 +1,2 @@
-// export const BaseBEURL = "https://social-media-server-sigma-rose.vercel.app"
-export const BaseBEURL = "http://localhost:3001"
+export const BaseBEURL = "https://hanabi-sport-server.onrender.com"
+// export const BaseBEURL = "http://localhost:3001"

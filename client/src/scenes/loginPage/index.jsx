@@ -28,8 +28,8 @@ const LoginPage = () => {
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
           Chào bạn đến với Hanabi Sport, chọn tài khoản muốn dùng!
         </Typography>
-        <Form />
-        {/* <ChooseUser /> */}
+        {/* <Form /> */}
+        <ChooseUser />
       </Box>
     </Box>
   );
