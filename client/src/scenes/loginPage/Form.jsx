@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import { BaseBEURL } from "constants/baseBE";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -64,7 +65,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "https://social-media-server-sigma-rose.vercel.app/auth/register",
+      `${BaseBEURL}/auth/register `,
       {
         method: "POST",
         body: formData,
@@ -79,9 +80,9 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("https://social-media-server-sigma-rose.vercel.app/auth/login", {
+    const loggedInResponse = await fetch( `${BaseBEURL}/auth/login `, {
       method: "POST",
-      mode: "no-cors",
+      // mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });

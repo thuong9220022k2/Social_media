@@ -16,17 +16,20 @@ import {
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
-import { useState } from "react";
+import { BaseBEURL } from "constants/baseBE";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { setPost } from "state";
+import { setComments, setPost } from "state";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { categoryConst } from "constants/category";
+import CommentItem from "./CommentItem";
 
 const PostWidget = ({
   postId,
   postUserId,
   name,
+  title,
   description,
   picturePath,
   userPicturePath,
@@ -39,15 +42,18 @@ const PostWidget = ({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
+  const [postComments, setPostComments] = useState([]);
   const isLiked = Boolean(likes[loggedInUserId]);
   const likeCount = Object.keys(likes).length;
+  const [reload, setReload] = useState(false);
+  const [newComment, setNewComment] = useState('');
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(`https://social-media-server-sigma-rose.vercel.app/posts/${postId}/like`, {
+    const response = await fetch(`${BaseBEURL}/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -59,6 +65,48 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  const getComment = async () => {
+    const response = await fetch(`${BaseBEURL}/comment/${postId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+    const postComments = await response.json();
+    setPostComments(postComments);
+  }
+
+  const commentTo = async () => {
+    try {
+      const response = await fetch(`${BaseBEURL}/comment`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: loggedInUserId,
+          eventId: postId,
+          comment: newComment,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      // const newComment = await response.json();
+      setReload(!reload); // Toggle reload to trigger useEffect
+    } catch (error) {
+      console.error('Failed to post comment:', error);
+    }
+  }
+
+  useEffect(() => {
+    getComment();
+  }, [reload]);
+
   return (
     <WidgetWrapper m="2rem 0">
       <Friend
@@ -67,6 +115,7 @@ const PostWidget = ({
         subtitle={address}
         userPicturePath={userPicturePath}
       />
+      <Typography fontWeight={700} sx={{ mt: 2 }}>{title}</Typography>
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
@@ -76,7 +125,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://social-media-server-sigma-rose.vercel.app/assets/${picturePath}`}
+          src={`${BaseBEURL}/assets/${picturePath}`}
         />
       )}
       <Box display="flex" justifyContent="space-between" pt={1}>
@@ -103,27 +152,27 @@ const PostWidget = ({
           </FlexBetween>
 
           <FlexBetween gap="0.3rem">
-            <IconButton onClick={() => setIsComments(!isComments)}>
+            <IconButton onClick={() => {
+              setIsComments(!isComments);
+            }}>
               <ChatBubbleOutlineOutlined />
             </IconButton>
-            <Typography>{comments.length}</Typography>
+            <Typography>{postComments.length}</Typography>
           </FlexBetween>
           <FlexBetween>
             <p onClick={() => {
               console.log("clicked")
-              window.location.href = "https://social-media-server-sigma-rose.vercel.app/chat";
+              window.location.href = `${BaseBEURL}/chat`;
             }}>message</p>
           </FlexBetween>
         </FlexBetween>
       </FlexBetween>
       {isComments && (
         <Box mt="0.5rem">
-          {comments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
+          {postComments.map((item) => (
+            <Box key={item._id}>
               <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
-              </Typography>
+              <CommentItem name={`${item.firstName} ${item.lastName}`} avartarUrl={item.userPicturePath} comment={item.comment} />
             </Box>
           ))}
           <Divider />
@@ -138,8 +187,10 @@ const PostWidget = ({
                   borderRadius: 10,
                 },
               }}
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
             />
-            <Button variant="text">Comment</Button>
+            <Button variant="text" onClick={commentTo}>Comment</Button>
           </Box>
         </Box>
       )}

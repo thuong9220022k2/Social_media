@@ -11,6 +11,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import WidgetWrapper from "components/WidgetWrapper";
+import { BaseBEURL } from "constants/baseBE";
 import { categoryConst } from "constants/category";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,7 +58,7 @@ const MyPostWidget = () => {
       formData.append("picturePath", image.name);
     }
     console.log(formData)
-    const response = await fetch(`https://social-media-server-sigma-rose.vercel.app/posts`, {
+    const response = await fetch(`${BaseBEURL}/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
